@@ -1,7 +1,18 @@
 const express = require('express');
-const client = require('./Configurations/dbConfiguration')
+const bodyParser = require('body-parser')
+const cors = require('cors');
+const client = require('./Configurations/dbConfiguration');
+const userRoutes =  require('./Routes/userRoutes')
+
+
 
 const app = express();
+app.use(cors({
+  origin: 'http://localhost:3000', 
+  methods: 'GET,POST,PUT,DELETE',  
+  credentials: true                
+}));
+app.use(bodyParser.json());
 
 client.connect(function(err) {
     if (err) throw err;
@@ -15,9 +26,11 @@ client.connect(function(err) {
     } else {
       console.log('Sample Data:', res.rows);
     }
-    client.end();
+    // client.end();
   });
   });
+
+  app.use('/api/users', userRoutes);
 
 
 
