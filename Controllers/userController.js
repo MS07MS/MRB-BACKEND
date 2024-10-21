@@ -14,7 +14,7 @@ const registerUser = async (req, res) => {
         const result = await userModel.createUser(username, email, password);
 
         if (result) {
-            return res.status(201).json({ message: 'User registered successfully' });
+            return res.status(201).json({ statusCode:201,message: 'User registered successfully' });
         }
     } catch (err) {
         console.error('Error registering user:', err);
